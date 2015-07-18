@@ -7,7 +7,7 @@ import sqlite
 
 # library config
 pypi = 'pypi.python.org'
-BASE = 'http://'+pypi
+BASE = 'https://'+pypi
 SIMPLE = BASE + '/simple/'
 version = '1.5'
 UA = 'pep381client/'+version
@@ -76,7 +76,7 @@ _conn = None
 def http():
     global _conn
     if _conn is None:
-        _conn = httplib.HTTPConnection(pypi)
+        _conn = httplib.HTTPSConnection(pypi)
         _conn.connect()
     # check that connection is still open
     try:
@@ -85,7 +85,7 @@ def http():
             raise socket.error
         _conn.sock.getpeername()
     except socket.error:
-        _conn = httplib.HTTPConnection(pypi)
+        _conn = httplib.HTTPSConnection(pypi)
         _conn.connect()
     return _conn
 
